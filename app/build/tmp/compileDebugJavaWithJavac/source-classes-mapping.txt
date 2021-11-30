@@ -1,2 +1,0 @@
-com/lin552/linsdemoproject/BuildConfig.java
- com.lin552.linsdemoproject.BuildConfig
