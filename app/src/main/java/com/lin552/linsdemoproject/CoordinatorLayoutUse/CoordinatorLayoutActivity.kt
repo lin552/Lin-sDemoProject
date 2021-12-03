@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import com.lin552.linsdemoproject.MainActivity
 import com.lin552.linsdemoproject.R
 
 /**
