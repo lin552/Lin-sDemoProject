@@ -3,6 +3,7 @@
     package="com.lin552.linsdemoproject">
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,6 +21,7 @@
         <activity android:name=".RxJavaTest.RxJavaTestActivity" />
         <activity android:name=".Multi.MultiProcessActivity"
             android:process=".MultiProcessActivity"/>
+        <activity android:name=".Media.MediaTestActivity" />
     </application>
 
 

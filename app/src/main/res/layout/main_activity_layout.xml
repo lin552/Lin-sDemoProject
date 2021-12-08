@@ -50,7 +50,7 @@
                 android:id="@+id/text4"
                 android:background="@color/white"
                 android:layout_marginTop="10dp"
-                android:text="Kotlin协程 使用实例"
+                android:text="媒体相关 使用实例"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:gravity="center"

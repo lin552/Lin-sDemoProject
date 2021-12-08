@@ -6,46 +6,55 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import com.lin552.linsdemoproject.CoordinatorLayoutUse.CoordinatorLayoutActivity
+import com.lin552.linsdemoproject.Media.MediaTestActivity
 import com.lin552.linsdemoproject.Multi.MultiProcessActivity
+import com.lin552.linsdemoproject.MultiProcessUse.BaseMMKVHelper
 import com.lin552.linsdemoproject.RxJavaTest.RxJavaTestActivity
 import com.lin552.linsdemoproject.WorkManagerUse.WorkManagerTestActivity
+import com.lin552.linsdemoproject.databinding.MainActivityLayoutBinding
+import com.lin552.linsdemoproject.databinding.MediaTestLayoutBinding
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.*
 
 
 class MainActivity : Activity() {
 
+    private lateinit var binding: MainActivityLayoutBinding
 
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(Companion.TAG, "onCreate: ")
-        setContentView(R.layout.main_activity_layout)
-        val rootDir = MMKV.initialize(application)
-//        val mmkv = MMKV.defaultMMKV()
+        binding = MainActivityLayoutBinding.inflate(layoutInflater)
+        val root = binding.root
+        setContentView(root)
 
         //测试mmkv多线程支持
-        val mmkv = MMKV.mmkvWithID(this.javaClass.simpleName, MMKV.MULTI_PROCESS_MODE)
+        val mmkv = BaseMMKVHelper.mmkv()
 
         testMMKVMainProcessToProcess(mmkv)
 //        testMMKVMainToThread(mmkv)
 //        testMMKVThreadToThread(mmkv)
 
-        findViewById<TextView>(R.id.text1).setOnClickListener {
+        binding.text1.setOnClickListener{
             startActivity(Intent(this@MainActivity, CoordinatorLayoutActivity::class.java))
         }
 
-        findViewById<TextView>(R.id.text2).setOnClickListener {
+        binding.text2.setOnClickListener{
             startActivity(Intent(this@MainActivity, RxJavaTestActivity::class.java))
         }
 
-        findViewById<TextView>(R.id.text3).setOnClickListener {
+        binding.text3.setOnClickListener{
             startActivity(Intent(this@MainActivity, WorkManagerTestActivity::class.java))
         }
 
-        findViewById<TextView>(R.id.text5).setOnClickListener {
+        binding.text4.setOnClickListener{
+            startActivity(Intent(this@MainActivity, MediaTestActivity::class.java))
+        }
+
+        binding.text5.setOnClickListener{
             startActivity(Intent(this@MainActivity, MultiProcessActivity::class.java))
         }
+
     }
 
     private fun testMMKVMainProcessToProcess(mmkv: MMKV) {
