@@ -11,6 +11,8 @@ suspend fun main() {
     test7()
 }
 
+//--------------------------------------------------------
+
 @DelicateCoroutinesApi
 fun test1() {
     GlobalScope.launch { // 在后台启动一个新的协程并继续
@@ -24,6 +26,8 @@ fun test1() {
     }
 }
 
+//--------------------------------------------------------
+
 @DelicateCoroutinesApi
 fun test2() = runBlocking {
     GlobalScope.launch { // 在后台启动一个新的协程并继续
@@ -33,6 +37,8 @@ fun test2() = runBlocking {
     println("Hello,") // 主协程在这里会立即执行
     delay(2000L)      // 延迟 2 秒来保证 JVM 存活
 }
+
+//--------------------------------------------------------
 
 @DelicateCoroutinesApi
 suspend fun test3() {
@@ -44,7 +50,10 @@ suspend fun test3() {
     job.join() // 等待直到子协程执行结束
 }
 
-//结构化并发
+//--------------------------------------------------------
+/**
+ * 结构化并发
+ */
 fun test4() = runBlocking {
     launch { // 在 runBlocking 作用域中启动一个新协程
         delay(1000L)
@@ -53,7 +62,10 @@ fun test4() = runBlocking {
     println("Hello,")
 }
 
-//作用域构建器
+//--------------------------------------------------------
+/**
+ * 作用域构建器
+ */
 fun test5() = runBlocking {
     launch {
         delay(200L)
@@ -73,7 +85,10 @@ fun test5() = runBlocking {
     println("Coroutine scope is over") // 这一行在内嵌 launch 执行完毕后才输出
 }
 
-//启动大量协程
+//--------------------------------------------------------
+/**
+ * 启动大量协程
+ */
 fun test6() = runBlocking {
     repeat(100_000) {
         launch {
@@ -82,6 +97,8 @@ fun test6() = runBlocking {
         }
     }
 }
+
+//--------------------------------------------------------
 
 @DelicateCoroutinesApi
 suspend fun test7() {

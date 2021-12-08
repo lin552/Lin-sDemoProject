@@ -9,7 +9,10 @@ suspend fun main() {
     test16()
 }
 
-//取消协程
+//--------------------------------------------------------
+/**
+ * 取消协程
+ */
 fun test8() = runBlocking {
     val job = launch {
         repeat(1000) { i ->
@@ -25,7 +28,10 @@ fun test8() = runBlocking {
     println("main: Now I can quit.")
 }
 
-//计算循环如果没有检查协程的取消，就还有执行，直到最后完成
+//--------------------------------------------------------
+/**
+ * 计算循环如果没有检查协程的取消，就还有执行，直到最后完成
+ */
 fun test9() = runBlocking {
     val startTime = System.currentTimeMillis()
     val job = launch(Dispatchers.Default) {
@@ -45,7 +51,10 @@ fun test9() = runBlocking {
     println("main: Now I can quit.")
 }
 
-//通过isActive判断后就会取消循环，并成功取消协程
+//--------------------------------------------------------
+/**
+ * 通过isActive判断后就会取消循环，并成功取消协程
+ */
 fun test10() = runBlocking{
     val startTime = System.currentTimeMillis()
     val job = launch(Dispatchers.Default) {
@@ -65,7 +74,10 @@ fun test10() = runBlocking{
     println("main: Now I can quit.")
 }
 
-//通过finally 释放资源，当协程被取消会抛出异常
+//--------------------------------------------------------
+/**
+ * 通过finally 释放资源，当协程被取消会抛出异常
+ */
 fun test11() = runBlocking {
     val job = launch {
         try {
@@ -83,7 +95,10 @@ fun test11() = runBlocking {
     println("main: Now I can quit.")
 }
 
-//运行不能取消的代码块，用withContext 和 NonCancellable
+//--------------------------------------------------------
+/**
+ * 运行不能取消的代码块，用withContext 和 NonCancellable
+ */
 fun test12() = runBlocking{
    val job = launch {
         try {
@@ -105,7 +120,10 @@ fun test12() = runBlocking{
     println("main: Now I can quit.")
 }
 
-//超时会抛出一个异常
+//--------------------------------------------------------
+/**
+ * 超时会抛出一个异常
+ */
 fun test13() = runBlocking {
     withTimeout(1300L) {
         repeat(1000) { i ->
@@ -115,7 +133,10 @@ fun test13() = runBlocking {
     }
 }
 
-//通过返回一个Null来替代超时抛出的异常
+//--------------------------------------------------------
+/**
+ * 通过返回一个Null来替代超时抛出的异常
+ */
 suspend fun test14() {
     val result = withTimeoutOrNull(1300L){
         repeat(1000) {
@@ -128,8 +149,10 @@ suspend fun test14() {
     println("Result is $result")
 }
 
-
-//多个协程异步执行时，每个协程有超时判断，修改资源问题
+//--------------------------------------------------------
+/**
+ * 多个协程异步执行时，每个协程有超时判断，修改资源问题
+ */
 var acquired = 0
 
 class Resource {
@@ -154,7 +177,10 @@ fun test15() {
     println(acquired) // 打印仍获取的资源数量
 }
 
-//资源应该存储在变量中，不该由withTimeout返回
+//--------------------------------------------------------
+/**
+ * 资源应该存储在变量中，不该由withTimeout返回
+ */
 fun test16() {
     runBlocking {
         repeat(100_000) { // Launch 100K coroutines
@@ -175,6 +201,8 @@ fun test16() {
 // Outside of runBlocking all coroutines have completed
     println(acquired) // Print the number of resources still acquired
 }
+
+//--------------------------------------------------------
 
 
 

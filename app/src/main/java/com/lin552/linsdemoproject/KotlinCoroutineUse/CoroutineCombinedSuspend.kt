@@ -11,6 +11,8 @@ fun main() {
     test22()
 }
 
+//--------------------------------------------------------
+
 suspend fun doSomethingUsefulOne(): Int {
     delay(1000L) // 假设我们在这里做了一些有用的事
     return 13
@@ -21,7 +23,9 @@ suspend fun doSomethingUsefulTwo(): Int {
     return 29
 }
 
-//按照顺序执行 协程之间有前后关系
+/**
+ * 按照顺序执行 协程之间有前后关系
+ */
 fun test17() = runBlocking<Unit> {
     val time = measureTimeMillis {
         val one = doSomethingUsefulOne()
@@ -31,7 +35,10 @@ fun test17() = runBlocking<Unit> {
     println("Completed in $time ms")
 }
 
-//让两个协程并发执行
+//--------------------------------------------------------
+/**
+ * 让两个协程并发执行
+ */
 fun test18() = runBlocking<Unit> {
     val time = measureTimeMillis {
         val one = async { doSomethingUsefulOne() }
@@ -41,7 +48,10 @@ fun test18() = runBlocking<Unit> {
     println("Completed in $time ms")
 }
 
-//惰性的async 当要启动时，通过start()方法
+//--------------------------------------------------------
+/**
+ * 惰性的async 当要启动时，通过start()方法
+ */
 fun test19() = runBlocking<Unit> {
     val time = measureTimeMillis {
         val one = async(start = CoroutineStart.LAZY) { doSomethingUsefulOne() }
@@ -54,6 +64,8 @@ fun test19() = runBlocking<Unit> {
     println("Completed in $time ms")
 }
 
+//--------------------------------------------------------
+
 // somethingUsefulOneAsync 函数的返回值类型是 Deferred<Int>
 @DelicateCoroutinesApi
 fun somethingUsefulOneAsync() = GlobalScope.async {
@@ -65,8 +77,9 @@ fun somethingUsefulOneAsync() = GlobalScope.async {
 fun somethingUsefulTwoAsync() = GlobalScope.async {
     doSomethingUsefulTwo()
 }
-
-//非挂起函数的执行(不推荐这种写法)
+/**
+ * 非挂起函数的执行(不推荐这种写法)
+ */
 @DelicateCoroutinesApi
 fun test20() {
     val time = measureTimeMillis {
@@ -82,7 +95,10 @@ fun test20() {
     println("Completed in $time ms")
 }
 
-//使用 async 的结构化并发
+//--------------------------------------------------------
+/**
+ * 使用 async 的结构化并发
+ */
 suspend fun concurrentSum(): Int = coroutineScope {
     val one = async { doSomethingUsefulOne() }
     val two = async { doSomethingUsefulTwo() }
@@ -97,7 +113,10 @@ fun test21() = runBlocking<Unit> {
     println("Completed in $time ms")
 }
 
-//取消始终通过协程的层次结构来传递
+//--------------------------------------------------------
+/**
+ * 取消始终通过协程的层次结构来传递
+ */
 suspend fun failedConcurrentSum(): Int = coroutineScope {
     val one = async<Int> {
         try {
@@ -114,7 +133,9 @@ suspend fun failedConcurrentSum(): Int = coroutineScope {
     one.await() + two.await()
 }
 
-//其中一个子协程失败，另一个async会取消，一起等待的父协程也会一起取消
+/**
+ * 其中一个子协程失败，另一个async会取消，一起等待的父协程也会一起取消
+ */
 fun test22() = runBlocking<Unit> {
     try {
         failedConcurrentSum()

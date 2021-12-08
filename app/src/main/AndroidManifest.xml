@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".CoordinatorLayoutUse.CoordinatorLayoutActivity" />
         <activity android:name=".RxJavaTest.RxJavaTestActivity" />
+        <activity android:name=".Multi.MultiProcessActivity"
+            android:process=".MultiProcessActivity"/>
     </application>
 
 

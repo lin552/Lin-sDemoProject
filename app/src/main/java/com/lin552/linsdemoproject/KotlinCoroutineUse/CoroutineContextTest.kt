@@ -12,8 +12,11 @@ suspend fun main() {
     test31()
 }
 
+//--------------------------------------------------------
 
-// launch{}和launch(Dispatchers.Default) 使用同一个构造器
+/**
+ * launch{}和launch(Dispatchers.Default) 使用同一个构造器
+ */
 @DelicateCoroutinesApi
 fun test23() = runBlocking<Unit> {
     launch { // context of the parent, main runBlocking coroutine
@@ -32,6 +35,7 @@ fun test23() = runBlocking<Unit> {
     }
 }
 
+//--------------------------------------------------------
 
 fun test24() = runBlocking {
     launch(Dispatchers.Unconfined) { // 非受限的——将和主线程一起工作
@@ -46,11 +50,15 @@ fun test24() = runBlocking {
     }
 }
 
+//--------------------------------------------------------
+
 //打印当前线程名称
 fun log(msg: String) = println("[${Thread.currentThread().name}] $msg")
 
-
-//其中一个使用 runBlocking 来显式指定了一个上下文，并且另一个使用 withContext 函数来改变协程的上下文，而仍然驻留在相同的协程中，正如可以在下面的输出中所见到的：
+/**
+ * 其中一个使用 runBlocking 来显式指定了一个上下文，并且另一个使用 withContext 函数来改变协程的上下文，
+ * 而仍然驻留在相同的协程中，正如可以在下面的输出中所见到的：
+ */
 @DelicateCoroutinesApi
 fun test25() {
     newSingleThreadContext("Ctx1").use { ctx1 ->
@@ -66,14 +74,19 @@ fun test25() {
     }
 }
 
-//上下文中的job 通过coroutineContext[job] 来检索
+//--------------------------------------------------------
+/**
+ * 上下文中的job 通过coroutineContext[job] 来检索
+ */
 fun test26() = runBlocking<Unit> {
     println("My job is ${coroutineContext[Job]}")
 }
 
-//使用GlobalScope启动的协程不会成为其他线程的子协程
-//父协程取消后，子协程会递归取消
-//launch{} 继承了 父类的上下文
+//--------------------------------------------------------
+/**
+ * 使用GlobalScope启动的协程不会成为其他线程的子协程父协程取消后，
+ * 子协程会递归取消launch{} 继承了 父类的上下文
+ */
 @DelicateCoroutinesApi
 fun test27() = runBlocking {
     // 启动一个协程来处理某种传入请求（request）
@@ -98,7 +111,10 @@ fun test27() = runBlocking {
     println("main: Who has survived request cancellation?")
 }
 
-//父协程会等待所有子协程处理完成
+//--------------------------------------------------------
+/**
+ * 父协程会等待所有子协程处理完成
+ */
 fun test28() = runBlocking {
     // 启动一个协程来处理某种传入请求（request）
     val request = launch {
@@ -114,7 +130,10 @@ fun test28() = runBlocking {
     println("Now processing of the request is complete")
 }
 
-//通过给协程取名可以更好的调试
+//--------------------------------------------------------
+/**
+ * 通过给协程取名可以更好的调试
+ */
 fun test29()= runBlocking{
     log("Started main coroutine")
      // 运行两个后台值计算
@@ -136,8 +155,11 @@ fun test29()= runBlocking{
     }
 }
 
-//协程处理生命周期
-//通过MainScope() 启动和取消 Application也相同
+//--------------------------------------------------------
+/**
+ * 协程处理生命周期
+ * 通过MainScope() 启动和取消 Application也相同
+ */
 class TestActivity : Activity() {
     private val mainScope = MainScope()
 
@@ -166,12 +188,15 @@ suspend fun test30() {
     delay(1000) // 为了在视觉上确认它们没有工作
 }
 
+//--------------------------------------------------------
+
 val threadLocal = ThreadLocal<String?>() // declare thread-local variable
 
 //不是太理解，还得多看看，具体使用场景时才看一眼
-
-//线程局部数据
-//可以通过threadLocal存储线程数据，每次协程切换后恢复正常的值
+/**
+ * 线程局部数据
+ * 可以通过threadLocal存储线程数据，每次协程切换后恢复正常的值
+ */
 fun test31() = runBlocking {
     threadLocal.set("main")
     println("Pre-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")

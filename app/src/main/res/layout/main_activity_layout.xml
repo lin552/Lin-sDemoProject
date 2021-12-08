@@ -57,6 +57,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
 
+            <TextView
+                android:id="@+id/text5"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:text="多进程测试 使用实例"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
         </LinearLayout>
 
 
