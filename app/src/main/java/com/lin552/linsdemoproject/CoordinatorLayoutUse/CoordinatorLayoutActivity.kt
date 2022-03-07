@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.lin552.linsdemoproject.R
+import com.lin552.linsdemoproject.databinding.ActivityGlideTestBinding
+import com.lin552.linsdemoproject.databinding.ConsraintLayoutTestBinding
+import com.lin552.linsdemoproject.databinding.FragmentFirstBinding
+import com.lin552.linsdemoproject.databinding.FragmentSecondBinding
 
 /**
  * CoordinatorLayout 使用实例
@@ -12,12 +16,12 @@ import com.lin552.linsdemoproject.R
  */
 class CoordinatorLayoutActivity : Activity() {
 
+    private lateinit var _binding: ConsraintLayoutTestBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "CoordinatorLayoutActivity onCreate: ")
-        setContentView(R.layout.consraint_layout_test)
-        val topicList = findViewById<RecyclerView>(R.id.topic_content_list)
-
+        _binding = ConsraintLayoutTestBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
     }
 
     override fun onStart() {

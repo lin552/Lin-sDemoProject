@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import com.lin552.linsdemoproject.CoordinatorLayoutUse.CoordinatorLayoutActivity
+import com.lin552.linsdemoproject.Glide.GlideTestActivity
 import com.lin552.linsdemoproject.Media.MediaTestActivity
 import com.lin552.linsdemoproject.Multi.MultiProcessActivity
 import com.lin552.linsdemoproject.MultiProcessUse.BaseMMKVHelper
@@ -21,8 +22,7 @@ class MainActivity : Activity() {
 
     private lateinit var binding: MainActivityLayoutBinding
 
-    @DelicateCoroutinesApi
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityLayoutBinding.inflate(layoutInflater)
         val root = binding.root
@@ -51,8 +51,8 @@ class MainActivity : Activity() {
             startActivity(Intent(this@MainActivity, MediaTestActivity::class.java))
         }
 
-        binding.text5.setOnClickListener{
-            startActivity(Intent(this@MainActivity, MultiProcessActivity::class.java))
+        binding.text6.setOnClickListener{
+            startActivity(Intent(this@MainActivity, GlideTestActivity::class.java))
         }
 
     }

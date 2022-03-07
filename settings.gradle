@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Lin's Demo Project"
 include ':app'
+include ':baseLib'

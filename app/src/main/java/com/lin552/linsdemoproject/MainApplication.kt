@@ -11,7 +11,7 @@ import kotlin.reflect.KProperty
 /**
  * Application
  */
-class MainApplication : Application() {
+open class MainApplication : Application() {
 
 
     companion object {

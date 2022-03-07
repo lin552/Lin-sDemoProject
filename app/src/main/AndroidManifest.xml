@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lin552.linsdemoproject">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -10,19 +14,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LinsDemoProject">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".Glide.GlideTestActivity"
+            android:exported="true"
+            android:label="@string/title_activity_glide_test"
+            android:theme="@style/Theme.LinsDemoProject.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".CoordinatorLayoutUse.CoordinatorLayoutActivity" />
         <activity android:name=".RxJavaTest.RxJavaTestActivity" />
-        <activity android:name=".Multi.MultiProcessActivity"
-            android:process=".MultiProcessActivity"/>
+        <activity
+            android:name=".Multi.MultiProcessActivity"
+            android:process=".MultiProcessActivity" />
         <activity android:name=".Media.MediaTestActivity" />
-    </application>
 
+        <meta-data android:name="EasyGoClient" android:value="true" />
+    </application>
 
 </manifest>
